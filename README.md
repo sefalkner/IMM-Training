@@ -16,7 +16,7 @@ conda env create -f env.yml
 
 ## IMM Training on CIFAR10
 
-The repository acts as a minimum working example to train a denoising diffusion model using [Inductive Moment Matching](https://arxiv.org/abs/2503.07565) article. In essence, it only adds two python files to the official code, most importantly ```training/preconds_training.py```. There you can find necessary additions to the ```IMMPrecond``` class for the calculation of the Maximum Mean Discrepancy loss. 
+The repository acts as a minimum working example to train a denoising diffusion model using [Inductive Moment Matching](https://arxiv.org/abs/2503.07565). In essence, it only adds two python files to the official code, most importantly ```training/preconds_training.py```. There you can find necessary additions to the ```IMMPrecond``` class for the calculation of the Maximum Mean Discrepancy loss. 
 Note that I focused on the flow matching schedule and, for now, ignored the EDM part.
 
 The file ```train.py``` represents a minimalistic training code on the CIFAR10 dataset using a DiT_S_4 model. Below are some generated images after running the training script with the default parameters. I've used a classifier free guidance of ``2.5`` and **!only 4 steps!**:
