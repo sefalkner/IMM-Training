@@ -19,7 +19,7 @@ conda env create -f env.yml
 The repository acts as a minimum working example to train a denoising diffusion model using [Inductive Moment Matching](https://arxiv.org/abs/2503.07565). In essence, it only adds two python files to the official code, most importantly ```training/preconds_training.py```. There you can find necessary additions to the ```IMMPrecond``` class for the calculation of the Maximum Mean Discrepancy loss. 
 Note that I focused on the flow matching schedule and, for now, ignored the EDM part.
 
-The file ```train.py``` represents a minimalistic training code on the CIFAR10 dataset using a DiT_S_4 model. Below are some generated images after running the training script with the default parameters. I've used a classifier free guidance of ``2.5`` and **!only 4 steps!**:
+The file ```train.py``` represents a minimalistic training code using the CIFAR10 dataset and a DiT_S_4 model. Below are some generated images after running the training script with the default parameters. I've used a classifier free guidance of ``2.5`` and **!only 4 steps!**:
 
 <p align="center">
   <img src="examples/cifar10_A.jpg" width="40%"/>
@@ -37,7 +37,7 @@ Generally speaking, it is great that the method is quite stable with small batch
 ## Checklist
 
 - [ ] Kernel weighting $\tilde w(s,t)$, is it correctly implemented?
-- [ ] Does the paper use an EMA model or the current model in the no_grad environment for the $f^{\theta -}(x)$ evaluation?
+- [ ] Should one use an EMA model or the current model in a no_grad environment for the $f^{\theta -}(x)$ evaluation?
 - [ ] Add options to change $k$, $a$ and $b$ hyperparameters 
 - [ ] Add different $r(s,t)$ mappings
 - [ ] EDM schedule
