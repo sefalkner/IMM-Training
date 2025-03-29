@@ -1,10 +1,10 @@
 # Inductive Moment Matching - Training Code
 
-This is an unofficial training code implementation of [Inductive Moment Matching](https://arxiv.org/abs/2503.07565). 
+This is an unofficial training code implementation for [Inductive Moment Matching](https://arxiv.org/abs/2503.07565) (official repository [here](https://github.com/lumalabs/imm))
 
 ## Disclaimer
 
-The intention of this repository is purely educational and should help anyone who wants to experiment with the method. Note again that this is is an unofficial implementation based on my own understanding of the article so far. I created this repository as the [official implementation](https://github.com/lumalabs/imm) does not include any training code or an MMD loss implementation up to now. As soon as it does, consider using and referencing the official repository. DO NOT expect this implementaion to reproduce the results of the article, and ALWAYS look out for bugs or deviations from the article.
+The intention of this repository is purely educational and should help anyone who wants to experiment with the method. Note again that this is is an unofficial implementation of the training algorithm based on my own understanding of the article so far. I created this repository as the [official implementation](https://github.com/lumalabs/imm) does not include any training code or an MMD loss implementation up to now. As soon as it does, consider using and referencing the official repository. DO NOT expect this implementaion to reproduce the results of the article, and ALWAYS look out for bugs or deviations from the article.
 
 
 ## Dependencies
