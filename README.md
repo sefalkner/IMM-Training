@@ -4,7 +4,7 @@ This is an unofficial training code implementation of [Inductive Moment Matching
 
 ## Disclaimer
 
-The intention of this repository is purely educational and should help anyone who wants to expermiment with the method. Note, again, that is is an unofficial implementation based on my own understanding of the article so far. I startet this repository as, for now, the [official implementation](https://github.com/lumalabs/imm) does not include any training code or an MMD loss implementation. As soon as it does, consider using and referencing the official repository. DO NOT expect this implemenation to reproduce the results of the article, and ALWAYS look out for bugs or deviations from the article.
+The intention of this repository is purely educational and should help anyone who wants to experiment with the method. Note again that this is is an unofficial implementation based on my own understanding of the article so far. I started this repository as the [official implementation](https://github.com/lumalabs/imm) does not include any training code or an MMD loss implementation up to now. As soon as it does, consider using and referencing the official repository. DO NOT expect this implementaion to reproduce the results of the article, and ALWAYS look out for bugs or deviations from the article.
 
 
 ## Dependencies
@@ -14,7 +14,7 @@ The code is mostly compatible with the original dependencies, just added [lucidr
 conda env create -f env.yml
 ```
 
-## Training on CIFAR10
+## IMM Training on CIFAR10
 
 The repository acts as a minimum working example to train a denoising diffusion model using [Inductive Moment Matching](https://arxiv.org/abs/2503.07565) article. In essence, it only adds two python files to the official code, most importantly ```training/preconds_training.py```. There you can find necessary additions to the ```IMMPrecond``` class for the calculation of the Maximum Mean Discrepancy loss. 
 Note that I focused on the flow matching schedule and, for now, ignored the EDM part.
@@ -26,14 +26,14 @@ The file ```train.py``` represents a minimalistic training code on the CIFAR10 d
   <img src="examples/cifar10_B.jpg" width="40%"/>
 </p>
 
-You have to pinch your eyes a bit to see an airplane, car, bird, cat, deer, dog, frog, horse, ship and truck (top -> down, left -> right). The employed DiT_S_4 is differs from the article and is certainly not the best choice for pixel-space diffusion, feel free to experiment with different architectures. Generally speaking, it is great that the method is stable with small batch sizes, given that the authors trained their models exclusively with a whopping batch size of ``4096``. Below is a comparison of images generated form the same noise with 1, 2, 4 and 8 steps:
+You have to pinch your eyes a bit to see an airplane, car, bird, cat, deer, dog, frog, horse, ship and truck (top -> down, left -> right). The employed DiT_S_4 is differs from the article and is certainly not the best choice for pixel-space diffusion, feel free to experiment with different architectures. Generally speaking, it is great that the method is quite stable with small batch sizes, given that the authors trained their models exclusively with a whopping batch size of ``4096``. Below is a comparison of images generated from the same noise with 1, 2, 4 and 8 steps:
 
 <p align="center">
   <img src="examples/cifar10_steps.jpg" width="40%"/>
 </p>
 
 
-There is one point where I had to fill a gap, which is the weighting function in the kernel $\tilde w(s,t)$. The authors state that this equals $c_\mathrm{out}(s,t)$ defined in Appendix C5. I understood this to be $\tilde w(s,t) = -(t-s) \times \sigma_d$ for flow matching. However, a negative weight does not make sense as the kernel function would be small for close points and explode for large distances. For now, I set  $\tilde w(s,t) = t-s$. Another gap is the parametrization of the $f^{\theta -}(x)$ model. Previous consistency models mostly use an EMA model, yet I found training is stable (maybe even faster) just using a no_grad environment for CIFAR10.
+There is one point where I had to fill a gap, which is the weighting function in the kernel $\tilde w(s,t)$. The authors state that this equals $c_\mathrm{out}(s,t)$ defined in Appendix C5. I understood this to be $\tilde w(s,t) = -(t-s) \times \sigma_d$ for flow matching. However, a negative weight does not make sense as the kernel function would be small for close points and explode for large distances. For now, I assumed  $\tilde w(s,t) = t-s$. Another gap is the parametrization of the $f^{\theta -}(x)$ model. Previous consistency models mostly use an EMA model, yet I found training is stable (maybe even faster) just using a no_grad environment for CIFAR10.
 
 ## Checklist
 
