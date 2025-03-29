@@ -26,14 +26,13 @@ The file ```train.py``` represents a minimalistic training code on the CIFAR10 d
   <img src="examples/cifar10_B.jpg" width="40%"/>
 </p>
 
-You have to pinch your eyes a bit to see an airplane, car, bird, cat, deer, dog, frog, horse, ship and truck (top -> down, left -> right). The employed DiT_S_4 is differs from the article and is certainly not the best choice for pixel-space diffusion, feel free to experiment with different architectures. Generally speaking, it is great that the method is quite stable with small batch sizes, given that the authors trained their models exclusively with a whopping batch size of ``4096``. Below is a comparison of images generated from the same noise with 1, 2, 4 and 8 steps:
+You have to pinch your eyes a bit to see an airplane, car, bird, cat, deer, dog, frog, horse, ship and truck (top -> down, left -> right). The employed DiT_S_4 is differs from the article and is certainly not the best choice for pixel-space diffusion, feel free to experiment with different architectures. For this example code, I did not focus on optimizing training/network parameters to increase the quality of generated images. Below is a comparison of images generated from the same noise with 1, 2, 4 and 8 steps:
 
 <p align="center">
   <img src="examples/cifar10_steps.jpg" width="40%"/>
 </p>
 
-
-There is one point where I had to fill a gap, which is the weighting function in the kernel $\tilde w(s,t)$. The authors state that this equals $c_\mathrm{out}(s,t)$ defined in Appendix C5. I understood this to be $\tilde w(s,t) = -(t-s) \times \sigma_d$ for flow matching. However, a negative weight does not make sense as the kernel function would be small for close points and explode for large distances. For now, I assumed  $\tilde w(s,t) = t-s$. Another gap is the parametrization of the $f^{\theta -}(x)$ model. Previous consistency models mostly use an EMA model, yet I found training is stable (maybe even faster) just using a no_grad environment for CIFAR10.
+Generally speaking, it is great that the method is quite stable with small batch sizes, given that the authors trained their models exclusively with a whopping batch size of ``4096``. There is one point where I had to fill a gap, which is the weighting function in the kernel $\tilde w(s,t)$. The authors state that this equals $c_\mathrm{out}(s,t)$ defined in Appendix C5. I understood this to be $\tilde w(s,t) = -(t-s) \times \sigma_d$ for flow matching. However, a negative weight does not make sense as the kernel function would be small for close points and explode for large distances. For now, I assumed  $\tilde w(s,t) = t-s$. Another gap is the parametrization of the $f^{\theta -}(x)$ model. Previous consistency models mostly use an EMA model, yet I found training is stable (maybe even faster) just using a no_grad environment for CIFAR10.
 
 ## Checklist
 
