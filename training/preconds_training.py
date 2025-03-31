@@ -160,12 +160,12 @@ class IMMPrecondTraining(IMMPrecond):
         x_r = self.ddim(x_t, x, t, r)
 
         # Get denoised sample from t to s
-        f_st = self.forward(x_t, t=t, s=s, class_labels=class_labels, force_fp32=force_fp32, model_kwargs=model_kwargs)
+        f_st = self.forward(x_t, t=t, s=s, class_labels=class_labels, force_fp32=force_fp32, **model_kwargs)
 
         # Get denoised sample from r to s, optionally coming from an EMA model
         with torch.no_grad():
             f_minus_model = ema_model if ema_model is not None else self.forward
-            f_sr = f_minus_model(x_r, t=r, s=s, class_labels=class_labels, force_fp32=force_fp32, model_kwargs=model_kwargs)
+            f_sr = f_minus_model(x_r, t=r, s=s, class_labels=class_labels, force_fp32=force_fp32, **model_kwargs)
 
         # Reshape images into groups
         f_st = rearrange(f_st, "(n m) c h w -> n m (c h w)", n=n_groups, m=group_size)

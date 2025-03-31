@@ -85,7 +85,7 @@ if __name__ == "__main__":
                                eps=0.006,  
                                temb_type='identity', 
                                time_scale=1000., 
-                               model_kwargs=model_kwargs ).to(device)
+                               **model_kwargs ).to(device)
     
     
     optimizer = torch.optim.AdamW(model.parameters(), lr=learning_rate, weight_decay=0)
